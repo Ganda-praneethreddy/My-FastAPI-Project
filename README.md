@@ -1,56 +1,132 @@
-# My FastAPI Project
 
-A Python REST API learning project built using FastAPI.
+# FastAPI Task Management REST API
+
+A Python REST API built using FastAPI, SQLite, SQLAlchemy, and Pydantic to manage tasks with complete CRUD operations.
 
 ## Features
 
-- REST API development using Python and FastAPI
-- Home endpoint to return a welcome message
-- Health check endpoint to monitor application status
-- Interactive API documentation using Swagger UI
-- Automatic request and response handling
+- Create new tasks
+- Retrieve all tasks
+- Retrieve a task by ID
+- Update existing tasks
+- Delete tasks
+- Persistent SQLite database storage
+- SQLAlchemy ORM integration
+- Pydantic request and response validation
+- Automatic Swagger UI documentation
+- HTTP error handling (404, 409)
 
 ## Technologies Used
 
-- Python 3.13
+- Python
 - FastAPI
+- SQLite
+- SQLAlchemy
+- Pydantic
 - Uvicorn
-- REST APIs
 - Swagger UI
 - Git and GitHub
+
+## Project Structure
+
+```text
+My-FastAPI-Project/
+├── main.py
+├── database.py
+├── models.py
+├── schemas.py
+├── tasks.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+The SQLite database file (`tasks.db`) is created locally and excluded from Git.
 
 ## API Endpoints
 
 | Method | Endpoint | Description |
-|---|---|---|
-| GET | `/` | Returns a welcome message |
-| GET | `/health` | Returns application health status |
-| GET | `/docs` | Interactive API documentation |
+|--------|----------|-------------|
+| GET | / | Welcome message |
+| GET | /health | Application health check |
+| POST | /tasks | Create a task |
+| GET | /tasks | Retrieve all tasks |
+| GET | /tasks/{task_id} | Retrieve a specific task |
+| PUT | /tasks/{task_id} | Update a task |
+| DELETE | /tasks/{task_id} | Delete a task |
 
 ## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Ganda-praneethreddy/My-FastAPI-Project.git
+cd My-FastAPI-Project
+```
 
 Install dependencies:
 
 ```bash
-py -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-Start the application:
+Run the application:
 
 ```bash
-py -m uvicorn main:app --reload
+python -m uvicorn main:app --reload
 ```
 
-Open the API documentation:
+## API Documentation
+
+Open Swagger UI:
 
 http://127.0.0.1:8000/docs
 
+## Example: Create a Task
+
+POST `/tasks`
+
+Request body:
+
+```json
+{
+  "id": 1,
+  "title": "Learn FastAPI",
+  "description": "Build REST APIs with SQLite",
+  "completed": false
+}
+```
+
+Successful response: HTTP 201 Created
+
+## Database Integration
+
+SQLite provides persistent local storage.
+
+SQLAlchemy ORM is used to:
+- Create database tables
+- Insert new records
+- Retrieve stored records
+- Update existing records
+- Delete records
+
+Pydantic schemas validate incoming API requests and serialize responses.
+
 ## Project Status
 
-Initial FastAPI application completed. Additional backend features and tests are planned.
+Implemented:
+- FastAPI REST API
+- CRUD operations
+- SQLite database integration
+- SQLAlchemy ORM
+- Pydantic schemas
+- Swagger UI testing
+- GitHub version control
 
-## Learning Reference
+Future improvements:
+- Automated API testing with pytest
+- Authentication and authorization
+- Docker containerization
+- Cloud deployment
 
-This is an independently created learning application. Corey Schafer's FastAPI course is used as a learning reference.
 
-Original course: https://github.com/CoreyMSchafer/FastAPI-Full-Course
