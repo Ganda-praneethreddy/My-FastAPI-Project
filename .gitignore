@@ -2,21 +2,16 @@
 # Python cache
 __pycache__/
 *.pyc
-*.pyo
 
 # Virtual environments
-.venv/
 venv/
-env/
+.venv/
 
-# Environment variables and secrets
+# Environment variables
 .env
-.env.*
-!.env.example
 
-# IDE settings
+# SQLite database
+*.db
+
+# VS Code settings
 .vscode/
-.idea/
-
-# Test cache
-.pytest_cache/
