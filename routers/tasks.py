@@ -1,11 +1,12 @@
-
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import models
 from schemas import TaskCreate, TaskResponse
 from database import SessionLocal
+from logger import logger
+
+
 router = APIRouter(
     prefix="/tasks",
     tags=["Tasks"]
@@ -38,9 +39,13 @@ def create_task(task: TaskCreate, db: Session = Depends(get_db)):
         completed=task.completed
     )
 
+
+
     db.add(new_task)
     db.commit()
     db.refresh(new_task)
+
+    logger.info(f"Task created successfully: ID {new_task.id}")
 
     return new_task
 
@@ -48,6 +53,10 @@ def create_task(task: TaskCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[TaskResponse])
 def get_all_tasks(db: Session = Depends(get_db)):
     tasks = db.query(models.Task).all()
+
+    logger.info(f"Retrieved all tasks: Count {len(tasks)}")
+
+
     return tasks
 
 
@@ -64,6 +73,7 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
             detail="Task not found"
         )
 
+    logger.info(f"Retrieved task: ID {task.id}")
     return task
 
 
@@ -93,6 +103,7 @@ def update_task(task_id: int, updated_task: TaskCreate, db: Session = Depends(ge
     db.commit()
     db.refresh(existing_task)
 
+    logger.info(f"Updated task successfully: ID {existing_task.id}")
     return existing_task
 
 @router.delete("/{task_id}", status_code=200)
@@ -111,4 +122,5 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
     db.delete(existing_task)
     db.commit()
 
+    logger.info(f"Deleted task successfully: ID {task_id}")
     return {"message": "Task deleted successfully"}

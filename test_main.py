@@ -121,7 +121,8 @@ def test_delete_task(client):
 
     assert get_response.status_code == 404
     assert get_response.json() == {
-        "detail": "Task not found"
+        "error": "Task not found",
+"status_code": 404
     }
 
 
@@ -130,7 +131,8 @@ def test_get_nonexistent_task(client):
 
     assert response.status_code == 404
     assert response.json() == {
-        "detail": "Task not found"
+        "error": "Task not found",
+        "status_code": 404
     }
 
 
@@ -149,7 +151,8 @@ def test_create_duplicate_task(client):
 
     assert second_response.status_code == 409
     assert second_response.json() == {
-        "detail": "Task ID already exists"
+        "error": "Task ID already exists",
+        "status_code": 409
     }
 
 
@@ -182,7 +185,8 @@ def test_update_nonexistent_task(client):
 
     assert response.status_code == 404
     assert response.json() == {
-        "detail": "Task not found"
+        "error": "Task not found",
+        "status_code": 404
     }
 
 
@@ -191,7 +195,8 @@ def test_delete_nonexistent_task(client):
 
     assert response.status_code == 404
     assert response.json() == {
-        "detail": "Task not found"
+        "error": "Task not found",
+        "status_code": 404  
     }
 
 
@@ -218,5 +223,6 @@ def test_update_task_id_mismatch(client):
 
     assert response.status_code == 400
     assert response.json() == {
-        "detail": "Task ID in body must match URL"
+        "error": "Task ID in body must match URL",
+    "status_code": 400
     }
