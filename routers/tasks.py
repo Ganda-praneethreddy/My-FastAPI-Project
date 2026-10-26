@@ -2,10 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import models
-from schemas import TaskCreate, TaskResponse
 from database import SessionLocal
 from logger import logger
-
+from schemas import TaskCreate, TaskResponse
 
 router = APIRouter(
     prefix="/tasks",

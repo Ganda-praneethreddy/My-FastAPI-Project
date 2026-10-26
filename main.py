@@ -1,12 +1,9 @@
-from logger import logger
-from fastapi import FastAPI
-from database import engine, Base
-from routers import tasks
-from fastapi import Request, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 
-
-import models
+from database import Base, engine
+from logger import logger
+from routers import tasks
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
