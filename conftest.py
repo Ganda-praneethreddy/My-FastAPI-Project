@@ -5,7 +5,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from database import Base
-from main import app, get_db
+from main import app
+from routers.tasks import get_db
 import models
 from fastapi.testclient import TestClient
 
